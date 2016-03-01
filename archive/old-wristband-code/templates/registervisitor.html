@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>EOH Visitor ID Registration</title>
+    <style type="text/css">
+      .label {text-align: right}
+      .error {color: red}
+    </style>
+</head>
+
+<body>
+    <h1>Please provide your ID number and contact information.</h1>
+
+    <form method="POST">
+        <table>
+        <tr>
+            <td class="label">
+                ID Number
+            </td>
+            <td>
+                <input type="text" name="visitor_id">
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label">
+                Full Name
+            </td>
+            <td>
+                <input type="text" name="name">
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label">
+                Email Address
+            </td>
+            <td>
+                <input type="text" name="email">
+            </td>
+        </tr>
+
+        </table>
+
+        <div class="error">
+            {{error}}
+        </div>
+
+        <input type="submit">
+    </form>
+</html>

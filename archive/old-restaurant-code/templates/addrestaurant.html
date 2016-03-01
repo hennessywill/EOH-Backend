@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Add a Restaurant</title>
+    <style type="text/css">
+      .label {text-align: left}
+      .error {color: red }
+      .success {color: green}
+    </style>
+</head>
+
+<body>
+    <h1>Add a Restaurant to the Database</h1>
+
+    <form method="POST">
+        <table>
+        <tr>
+            <td class="label">
+                Restaurant Name
+            </td>
+            <td>
+                <input type="text" name="name" value="{{name}}">
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label">
+                Category
+            </td>
+            <td>
+                <input type="text" name="category" value="{{category}}">
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label">
+                Menu URL
+            </td>
+            <td>
+                <input type="text" name="menu" value="{{menu}}">
+            </td>
+        </tr>
+
+        </table>
+
+        <div class="error">
+            {{error}}
+        </div>
+
+        <div class="success">
+            {{success}}
+        </div>
+
+        <input type="submit">
+    </form>
+</html>
