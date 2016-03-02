@@ -32,6 +32,7 @@ ALL_EXHIBITS_JSON_KEY = "allexhibitsjson"
 ADDRESSES = {
     "Altgeld Hall":"1409 West Green Street, Urbana, IL 61801",
     "Bardeen Quad":"40.111709,-88.227028",
+    "Ceramics Building":"105 S Goodwin Ave, Urbana, IL 61801",
     "Coordinated Science Laboratory":"1308 West Main Street, Urbana, IL 61801",
     "Digital Computer Lab":"1304 West Springfield, Urbana, IL 61801, United States",
     "Engineering Hall":"1308 West Green Street, Urbana, IL 61801",
@@ -46,7 +47,8 @@ ADDRESSES = {
     "Newmark Hall":"205 North Mathews Avenue, Urbana, IL 61801",
     "Siebel Center":"201 N Goodwin Ave, Urbana, IL, United States",
     "Talbot Lab":"104 S Wright St, Urbana, IL, United States",
-    "Transportation Building":"104 South Mathews Avenue, Urbana, IL 61801"
+    "Transportation Building":"104 South Mathews Avenue, Urbana, IL 61801",
+    "Utilities Production": "40.115130,-88.226195"
 }
 
 
@@ -86,38 +88,38 @@ class ExhibitsJSONHandler(MainHandler):
 
 
 
-# ## Script used to parse data from "templates/exhibits_db.txt"
-# ## and put it into the database. Export from Excel as a tab-delimited txt file
-# class UpdateDbFromFile(MainHandler):
-#     def get(self):
-#         data = list(csv.reader(open("templates/exhibits_db.txt", 'rU'), dialect=csv.excel_tab, delimiter='\t'))
-#         detectedError = False
-#         for row in data:
-#             if row[0] == "%%%%":
-#                 break
-#             try:
-#                 e = Exhibit(name=row[0],
-#                             description=row[3],
-#                             department=row[4],
-#                             building=row[1],
-#                             room_number=row[2],
-#                             address=ADDRESSES[row[1]],
-#                             url=row[5]
-#                            )
-#                 e.put()
-#             except UnicodeDecodeError:
-#                 self.response.out.write("<p>Error: "+row[0]+" - bad character not in ascii range</p>")
-#                 detectedError = True
+ ## Script used to parse data from "templates/exhibits_db.txt"
+ ## and put it into the database. Export from Excel as a tab-delimited txt file
+ class UpdateDbFromFile(MainHandler):
+     def get(self):
+         data = list(csv.reader(open("templates/exhibits_db.txt", 'rU'), dialect=csv.excel_tab, delimiter='\t'))
+         detectedError = False
+         for row in data:
+             if row[0] == "%%%%":
+                 break
+             try:
+                 e = Exhibit(name=row[0],
+                             description=row[3],
+                             department=row[4],
+                             building=row[1],
+                             room_number=row[2],
+                             address=ADDRESSES[row[1]],
+                             url=row[5]
+                            )
+                 e.put()
+             except UnicodeDecodeError:
+                 self.response.out.write("<p>Error: "+row[0]+" - bad character not in ascii range</p>")
+                 detectedError = True
 
-#         if not detectedError:
-#             self.response.out.write("Success: uploaded all the exhibits into the database.")
+         if not detectedError:
+             self.response.out.write("Success: uploaded all the exhibits into the database.")
 
 
 # ## Script to delete all exhibit entities in the database. Useful to use before udpating db.
-# class DeleteAllExhibitsDb(MainHandler):
-#     def get(self):
-#         db.delete(Exhibit.all())
-#         self.response.out.write("Success: all exhibits deleted from the database.")
+ class DeleteAllExhibitsDb(MainHandler):
+     def get(self):
+         db.delete(Exhibit.all())
+         self.response.out.write("Success: all exhibits deleted from the database.")
 
 
 app = webapp2.WSGIApplication([
